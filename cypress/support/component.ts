@@ -36,12 +36,6 @@ declare global {
       mount: typeof mount,
     }
   }
-  // this makes TS errors go away https://stackoverflow.com/a/56458070
-  interface Window {
-    __ENV__: {
-      VITE_API_ROOT: string,
-    },
-  }
 }
 
 Cypress.Commands.add(`mount`, mount)

@@ -1,7 +1,7 @@
 export function HomePage() {
   return (
     <div className="Home">
-      Hello World!
+      Hello World!!! Boo!!!
     </div>
   )
 }
