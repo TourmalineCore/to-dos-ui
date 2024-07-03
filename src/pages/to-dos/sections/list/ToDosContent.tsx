@@ -5,8 +5,10 @@ import { CompleteToDosButton } from "./components/complete-to-dos-button/Complet
 
 export const ToDosContent = observer(({
   onCompleteClick,
+  onDeleteClick,
 }: {
   onCompleteClick: () => unknown,
+  onDeleteClick: (toDoId: number) => unknown,
 }) => {
   const toDosState = useContext(ToDosStateContext)
 
@@ -33,15 +35,17 @@ export const ToDosContent = observer(({
                   id={`to-do-${id}-checkbox`}
                   type="checkbox"
                   onChange={() => toDosState.toggleToDoSelection({
-                    toDoId: id, 
+                    toDoId: id,
                   })}
                   checked={toDosState.selectedToDoIds.includes(id)}
                 />
-                <label 
+                <label
                   htmlFor={`to-do-${id}-checkbox`}
                 >
                   {name}
                 </label>
+                <button name={`delete-${id}`}
+                  onClick={() => onDeleteClick(id)}>X</button>
               </li>
             ))
         }

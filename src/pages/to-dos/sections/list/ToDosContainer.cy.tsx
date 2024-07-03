@@ -15,6 +15,10 @@ describe(`ToDosContainer`, () => {
           id: 2,
           name: `Deux`,
         },
+        {
+          id: 3,
+          name: `Eau`,
+        },
       ],
     }
 
@@ -79,12 +83,30 @@ function selectionTests() {
           2,
         ],
       })
-      
+
     cy
       .get<ToDosState>(`@toDosState`)
       .should((toDosState) => {
         expect(toDosState.selectedToDoIds).to.deep.eq([])
       })
+
+    cy
+      .intercept(
+        `DELETE`,
+        `*/to-dos*`,
+        `true`, // because it needs this to be specified and to be string, even if it is not correct by the API contract
+      )
+      .as(`deleteToDosNetworkCall`)
+
+    cy.get(`[name=delete-3]`)
+      .click()
+
+    cy.wait(`@deleteToDosNetworkCall`)
+
+    cy.get(`@deleteToDosNetworkCall`)
+      .its(`request.query`)
+      .should(`have.property`, `toDoId`, '3')
+
   })
 }
 
@@ -97,8 +119,8 @@ function mountComponent() {
 
   cy.mount(
     <ToDosStateContext.Provider value={toDosState}>
-      <ToDosContainer 
-        onToDosCompleted={() => {}}
+      <ToDosContainer
+        onToDosCompleted={() => { }}
       />
     </ToDosStateContext.Provider>,
   )

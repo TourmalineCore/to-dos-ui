@@ -28,6 +28,8 @@ function initializationTests() {
 
     cy.contains(`First ToDo`)
     cy.contains(`Second ToDo`)
+    cy.contains(`X`)
+    cy.contains(`X`)
   })
 }
 
@@ -69,7 +71,7 @@ function mountComponent({
   toDosForInitialization: unknown[],
 }) {
   const toDosState = new ToDosState()
-  
+
   toDosState.initialize({
     toDos: toDosForInitialization as ToDo[],
   })
@@ -80,8 +82,9 @@ function mountComponent({
 
   cy.mount(
     <ToDosStateContext.Provider value={toDosState}>
-      <ToDosContent 
-        onCompleteClick={() => {}}
+      <ToDosContent
+        onCompleteClick={() => { }}
+        onDeleteClick={() => { }}
       />
     </ToDosStateContext.Provider>,
   )
