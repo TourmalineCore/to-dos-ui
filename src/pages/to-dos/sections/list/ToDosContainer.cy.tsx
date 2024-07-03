@@ -90,16 +90,12 @@ function selectionTests() {
         expect(toDosState.selectedToDoIds).to.deep.eq([])
       })
 
-    cy.intercept(
-      {
-        method: `DELETE`,
-        url: `*/to-dos*`,
-      },
-      (req) => {
-        console.log(`Intercepted request:`, req)
-        expect(req.query).to.have.property(`toDoId`, `3`)
-        req.reply()
-      })
+    cy
+      .intercept(
+        `DELETE`,
+        `*/to-dos*`,
+        `true`, // because it needs this to be specified and to be string, even if it is not correct by the API contract
+      )
       .as(`deleteToDosNetworkCall`)
 
     cy.get(`[name=delete-3]`)
@@ -109,7 +105,7 @@ function selectionTests() {
 
     cy.get(`@deleteToDosNetworkCall`)
       .its(`request.query`)
-      .should(`have.property`, `toDoId`, 3)
+      .should(`have.property`, `toDoId`, '3')
 
   })
 }
