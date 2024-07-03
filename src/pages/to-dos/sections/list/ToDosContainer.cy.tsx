@@ -15,6 +15,10 @@ describe(`ToDosContainer`, () => {
           id: 2,
           name: `Deux`,
         },
+        {
+          id: 3,
+          name: `Eau`,
+        },
       ],
     }
 
@@ -79,12 +83,34 @@ function selectionTests() {
           2,
         ],
       })
-      
+
     cy
       .get<ToDosState>(`@toDosState`)
       .should((toDosState) => {
         expect(toDosState.selectedToDoIds).to.deep.eq([])
       })
+
+    cy.intercept(
+      {
+        method: `DELETE`,
+        url: `*/to-dos*`,
+      },
+      (req) => {
+        console.log(`Intercepted request:`, req)
+        expect(req.query).to.have.property(`toDoId`, `3`)
+        req.reply()
+      })
+      .as(`deleteToDosNetworkCall`)
+
+    cy.get(`[name=delete-3]`)
+      .click()
+
+    cy.wait(`@deleteToDosNetworkCall`)
+
+    cy.get(`@deleteToDosNetworkCall`)
+      .its(`request.query`)
+      .should(`have.property`, `toDoId`, 3)
+
   })
 }
 
@@ -97,8 +123,8 @@ function mountComponent() {
 
   cy.mount(
     <ToDosStateContext.Provider value={toDosState}>
-      <ToDosContainer 
-        onToDosCompleted={() => {}}
+      <ToDosContainer
+        onToDosCompleted={() => { }}
       />
     </ToDosStateContext.Provider>,
   )

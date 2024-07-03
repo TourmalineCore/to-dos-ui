@@ -84,6 +84,7 @@ function mountComponent({
     <ToDosStateContext.Provider value={toDosState}>
       <ToDosContent
         onCompleteClick={() => { }}
+        onDeleteClick={() => { }}
       />
     </ToDosStateContext.Provider>,
   )

@@ -34,6 +34,7 @@ export const ToDosContainer = observer(({
   return (
     <ToDosContent
       onCompleteClick={onCompleteSelectedToDos}
+      onDeleteClick={onDeleteToDos}
     />
   )
 
@@ -52,5 +53,14 @@ export const ToDosContainer = observer(({
     toDosState.clearSelection()
 
     onToDosCompleted()
+  }
+
+  async function onDeleteToDos(id: number) {
+    await api.delete<
+      void,
+      AxiosResponse<void>
+    >(
+      `/to-dos?toDoId=${id}`,
+    )
   }
 })

@@ -5,8 +5,10 @@ import { CompleteToDosButton } from "./components/complete-to-dos-button/Complet
 
 export const ToDosContent = observer(({
   onCompleteClick,
+  onDeleteClick,
 }: {
   onCompleteClick: () => unknown,
+  onDeleteClick: (toDoId: number) => unknown,
 }) => {
   const toDosState = useContext(ToDosStateContext)
 
@@ -42,7 +44,8 @@ export const ToDosContent = observer(({
                 >
                   {name}
                 </label>
-                <button>X</button>
+                <button name={`delete-${id}`}
+                  onClick={() => onDeleteClick(id)}>X</button>
               </li>
             ))
         }
