@@ -17,7 +17,7 @@
     "cypress:run:component": "cypress run --component --browser chrome",
     "cypress:open:e2e": "cypress open --e2e --browser chrome",
     "cypress:run:e2e": "cypress run --e2e --browser chrome",
-    "cypress:run:e2e:local-env": "cypress run --e2e --browser chrome --env API_URL=http://to-dos.local.tourmalinecore.internal:40080/api/to-dos-api",
+    "cypress:run:e2e:local-env": "cypress run --e2e --browser chrome --config baseUrl=http://to-dos.local.tourmalinecore.internal:40080 --env API_URL=http://to-dos.local.tourmalinecore.internal:40080/api/to-dos-api",
     "generate-api-types": "docker-compose -f ./api-types/docker-compose.yml up --build ts_generator"
   },
   "dependencies": {
