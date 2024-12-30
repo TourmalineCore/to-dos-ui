@@ -53,7 +53,7 @@ npm run cypress:run:component
 npm run cypress:run:e2e:local-env
 ```
 
->Note: There is an issue that Cypress doesn't see Chrome from inside a Dev Container. For now you can fix it by changing `--browser chrome` in `package.json` to `--browser electron`. It needs to be fixed differently, e.g. by upgrading Cypress version and its docker image with pre-installed browser or something similar to that.
+>Note: There is an issue that Cypress doesn't see Chrome from inside a Dev Container for arm64 platforms. For now it is fixed by changing `--browser chrome` in `package.json` to `--browser electron`. Cypress note regarding that: https://github.com/cypress-io/cypress-docker-images/tree/master/included#platforms.
 
 ## TypeScript (VSCode only)
 

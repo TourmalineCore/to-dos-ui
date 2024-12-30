@@ -2,7 +2,8 @@
 // README at: https://github.com/devcontainers/templates/tree/main/src/docker-existing-dockerfile
 {
 	"name": "Existing Dockerfile",
-	"image": "cypress/included:cypress-13.7.1-node-20.11.1-chrome-123.0.6312.58-1-ff-124.0-edge-122.0.2365.92-1",
+	// image with NOT included Cypress is used becuase cypress/included doesn't support browsers installatin for arm64 yet
+	"image": "cypress/browsers:node-20.11.1-chrome-123.0.6312.58-1-ff-124.0-edge-122.0.2365.92-1",
 	"features": {
 		"ghcr.io/devcontainers/features/docker-outside-of-docker:1.4.5": {
 			"version": "20.10",
