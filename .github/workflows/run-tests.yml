@@ -34,7 +34,7 @@ jobs:
         uses: devcontainers/ci@v0.3
         with:
           runCmd: |
-            brew install yq
+            snap install yq
             yq -i '.a.b[0].c = "cool"' file.yaml
             # kind create cluster --name to-dos --config kind-local-config.yaml --kubeconfig ./.to-dos-cluster-kubeconfig
             # export KUBECONFIG=$(pwd)/.to-dos-cluster-kubeconfig
