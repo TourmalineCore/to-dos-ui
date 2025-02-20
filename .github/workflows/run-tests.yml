@@ -28,10 +28,11 @@ jobs:
         with:
           component: true
           browser: chrome
+  push_to_registry:
+    uses: ./.github/workflows/docker-build-and-push.yml
 
   e2e-test:
     runs-on: ubuntu-22.04
-    uses: ./.github/workflows/docker-build-and-push.yml
     steps:
       - name: Checkout local-env
         uses: actions/checkout@v4
