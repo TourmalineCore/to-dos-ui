@@ -28,8 +28,10 @@ jobs:
         with:
           component: true
           browser: chrome
+  
   push_to_registry:
     uses: ./.github/workflows/docker-build-and-push.yml
+    secrets: inherit
 
   e2e-test:
     runs-on: ubuntu-22.04
