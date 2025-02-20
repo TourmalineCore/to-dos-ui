@@ -33,6 +33,7 @@ jobs:
 
   e2e-test:
     runs-on: ubuntu-22.04
+    needs: [push_to_registry]
     steps:
       - name: Checkout local-env
         uses: actions/checkout@v4
@@ -52,7 +53,6 @@ jobs:
             
             helmfile --environment local --namespace local -f deploy/helmfile.yaml apply
           push: never
-        needs: [push_to_registry]
 
       - name: Checkout ui
         uses: actions/checkout@v4
