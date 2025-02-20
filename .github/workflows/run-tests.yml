@@ -21,3 +21,31 @@ jobs:
         with:
           component: true
           browser: chrome
+
+  e2e-test:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout local-env
+        uses: actions/checkout@v4
+        with:
+          repository: TourmalineCore/to-dos-local-env
+
+      - name: Deploy Local Env to Kind k8s
+        uses: devcontainers/ci@v0.3
+        with:
+          runCmd: |
+            kind create cluster --name to-dos --config kind-local-config.yaml --kubeconfig ./.to-dos-cluster-kubeconfig
+            export KUBECONFIG=$(pwd)/.to-dos-cluster-kubeconfig
+            helmfile --environment local --namespace local -f deploy/helmfile.yaml apply
+          push: never
+
+      - name: Checkout ui
+        uses: actions/checkout@v4
+
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
+        with:
+          wait-on: "http://localhost:40080" 
+          browser: chrome
+          config-file: cypress.config.local-env.ts
+          
