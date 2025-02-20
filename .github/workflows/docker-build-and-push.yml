@@ -16,6 +16,9 @@ on:
     branches:
       - master
       - feature/*
+  # to allow to wait for a docker image to be published to proceed in another workflow
+  on: [workflow_call]
+
 
 jobs:
   push_to_registry:
