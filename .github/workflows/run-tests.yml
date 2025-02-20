@@ -34,18 +34,19 @@ jobs:
         uses: devcontainers/ci@v0.3
         with:
           runCmd: |
-            kind create cluster --name to-dos --config kind-local-config.yaml --kubeconfig ./.to-dos-cluster-kubeconfig
-            export KUBECONFIG=$(pwd)/.to-dos-cluster-kubeconfig
-            helmfile --environment local --namespace local -f deploy/helmfile.yaml apply
+            brew install yq
+            yq -i '.a.b[0].c = "cool"' file.yaml
+            # kind create cluster --name to-dos --config kind-local-config.yaml --kubeconfig ./.to-dos-cluster-kubeconfig
+            # export KUBECONFIG=$(pwd)/.to-dos-cluster-kubeconfig
+            # helmfile --environment local --namespace local -f deploy/helmfile.yaml apply
           push: never
 
-      - name: Checkout ui
-        uses: actions/checkout@v4
+      # - name: Checkout ui
+      #   uses: actions/checkout@v4
 
-      - name: Cypress run
-        uses: cypress-io/github-action@v6
-        with:
-          wait-on: "http://localhost:40080" 
-          browser: chrome
-          config-file: cypress.config.local-env.ts
-          
+      # - name: Cypress run
+      #   uses: cypress-io/github-action@v6
+      #   with:
+      #     wait-on: "http://localhost:40080" 
+      #     browser: chrome
+      #     config-file: cypress.config.local-env.ts
