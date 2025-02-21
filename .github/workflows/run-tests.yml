@@ -4,13 +4,6 @@ on:
   push:
     branches:
       - feature/*
-  # we need to run tests only after the current commit docker image is built and published
-  # otherwise we cannot spin up local-env with missing ui's docker image for the current commit
-  # taken from https://stackoverflow.com/a/64733705 and improved
-  # workflow_run:
-  #   workflows: ["Publish Docker image"]
-  #   types: 
-  #     - completed
 
 jobs:
   cypress-run:
