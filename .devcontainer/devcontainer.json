@@ -23,14 +23,7 @@
 			"version": "v0.164.0"
 		},
 		// https://github.com/cypress-io/cypress-documentation/issues/2956#issuecomment-1691335689
-		"ghcr.io/devcontainers/features/desktop-lite:1.1.0": {},
-		// to be able to edit yaml files in bash scripts conviniently using yq
-		"ghcr.io/eitsupi/devcontainer-features/jq-likes:2.1.1": {
-			"jqVersion": "none",
-			"yqVersion": "4.45.1",
-			"gojqVersion": "none",
-			"xqVersion": "none"
-		}
+		"ghcr.io/devcontainers/features/desktop-lite:1.1.0": {}
 	},
 	"forwardPorts": [
 		6080,
