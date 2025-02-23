@@ -49,8 +49,6 @@ jobs:
             # we need to properly expose KUBECONFIG as an absolute path, pwd prints current working directory path
             export KUBECONFIG=$(pwd)/.to-dos-cluster-kubeconfig
 
-            echo "tatata $TO_DOS_UI_BRANCH"
-
             helmfile --environment local --namespace local -f deploy/helmfile.yaml apply
           push: never
           # this variable is used by local-env helmfile to use current feature branch helm chart values.yaml file
