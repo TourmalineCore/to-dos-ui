@@ -53,13 +53,13 @@ jobs:
 
             helmfile --environment local --namespace local -f deploy/helmfile.yaml apply
           push: never
-          env:
-            # this variable is used by local-env helmfile to use current feature branch helm chart values.yaml file
-            # this is needed for a case when as part of the feature the chart was changed and is different from master branch
-            # this should properly fill the feature branch name in spite of the pipeline trigger source (PR, commit, etc.)
-            # https://stackoverflow.com/a/71158878
-            TO_DOS_UI_BRANCH: ${{ github.head_ref || github.ref_name }}
-
+          # this variable is used by local-env helmfile to use current feature branch helm chart values.yaml file
+          # this is needed for a case when as part of the feature the chart was changed and is different from master branch
+          # this should properly fill the feature branch name in spite of the pipeline trigger source (PR, commit, etc.)
+          # https://stackoverflow.com/a/71158878
+          env: |
+            TO_DOS_UI_BRANCH=${{ github.head_ref || github.ref_name }}
+      
       - name: Checkout ui
         uses: actions/checkout@v4
 
