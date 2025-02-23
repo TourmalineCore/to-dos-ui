@@ -12,18 +12,21 @@ jobs:
       image: cypress/browsers:node-20.11.1-chrome-123.0.6312.58-1-ff-124.0-edge-122.0.2365.92-1
       options: --user 1001
     steps:
-      - name: Checkout
+      - name: Checkout ui
         uses: actions/checkout@v4
-      # Install npm dependencies, cache them correctly
-      # and run all Cypress tests
-      - name: Cypress run
+
+      - name: Cypress run component tests
         uses: cypress-io/github-action@v6
         with:
           component: true
           browser: chrome
   
+  # this is needed to wait for the new docker image to be build and published to the registry
+  # so that we can use the image to run ui of the needed commit related version as part of local-env
+  # the idea is taken from here https://stackoverflow.com/a/71489231
   push_to_registry:
     uses: ./.github/workflows/docker-build-and-push.yml
+    # without this it cannot login to the registry
     secrets: inherit
 
   e2e-test:
@@ -52,7 +55,7 @@ jobs:
       - name: Checkout ui
         uses: actions/checkout@v4
 
-      - name: Cypress run
+      - name: Cypress run e2e tests
         uses: cypress-io/github-action@v6
         with:
           wait-on: "http://localhost:40080" 
