@@ -17,8 +17,8 @@
     "cypress:run:component": "cypress run --component --browser electron",
     "cypress:open:e2e": "cypress open --e2e --browser electron",
     "cypress:run:e2e": "cypress run --e2e --browser electron",
-    "cypress:open:e2e:local-env": "cypress open --e2e --browser electron --config baseUrl=http://localhost:40080 --env API_URL=http://localhost:40080/api/to-dos-api",
-    "cypress:run:e2e:local-env": "cypress run --e2e --browser electron --config baseUrl=http://localhost:40080 --env API_URL=http://localhost:40080/api/to-dos-api",
+    "cypress:open:e2e:local-env": "cypress open --e2e --browser electron --config baseUrl=http://localhost:30080 --env API_URL=http://localhost:30080/api/to-dos-api",
+    "cypress:run:e2e:local-env": "cypress run --e2e --browser electron --config baseUrl=http://localhost:30080 --env API_URL=http://localhost:30080/api/to-dos-api",
     "generate-api-types": "docker-compose -f ./api-types/docker-compose.yml up --build ts_generator"
   },
   "dependencies": {

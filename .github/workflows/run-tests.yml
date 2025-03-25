@@ -64,6 +64,6 @@ jobs:
       - name: Cypress run e2e tests
         uses: cypress-io/github-action@v6
         with:
-          wait-on: "http://localhost:40080" 
+          wait-on: "http://localhost:30080" 
           browser: chrome
           config-file: cypress.config.local-env.ts
