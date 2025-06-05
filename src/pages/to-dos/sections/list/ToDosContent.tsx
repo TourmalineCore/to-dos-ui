@@ -17,6 +17,7 @@ export const ToDosContent = observer(({
       />
       <ul
         data-cy="to-dos"
+        className="to-dos-content"
       >
         {
           toDosState

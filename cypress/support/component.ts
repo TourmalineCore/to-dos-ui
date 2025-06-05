@@ -21,6 +21,8 @@ import './commands'
 
 import { mount } from 'cypress/react18'
 
+import '../../src/styles/index.scss'
+
 window.__ENV__ = {
   VITE_API_ROOT: `http://test.com/to-dos-api`,
 }
