@@ -36,6 +36,8 @@ declare global {
   namespace Cypress {
     interface Chainable {
       mount: typeof mount,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      compareSnapshot(name: string, options?: any): Chainable<Element>,
     }
   }
 }
@@ -44,3 +46,8 @@ Cypress.Commands.add(`mount`, mount)
 
 // Example use:
 // cy.mount(<MyComponent />)
+
+after(() => {
+  //custom task to generate report
+  cy.task(`generateReport`)
+})

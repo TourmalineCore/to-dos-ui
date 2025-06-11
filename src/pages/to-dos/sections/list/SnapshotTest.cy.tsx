@@ -33,12 +33,10 @@ describe(`Snapshot test with Cypress`, () => {
         ],
       })
 
-      cy.get(`[data-cy="to-do"]`)
-        .snapshot()
-
+      cy.get(`[data-cy="to-dos-visual"]`)
+        .compareSnapshot(`page`)
     })
   })
-
 })
 
 function mountComponent({
