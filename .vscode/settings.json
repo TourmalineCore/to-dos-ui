@@ -4,6 +4,10 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit",
   },
+  "stylelint.validate": [
+    "css",
+    "scss"
+  ],
   "files.eol": "\n",
   "workbench.editor.enablePreviewFromQuickOpen": false,
   "editor.rename.enablePreview": false,
