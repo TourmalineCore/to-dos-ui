@@ -19,7 +19,7 @@
 			"helm": "3.14.4",
 			"minikube": "none"
 		},
-		"ghcr.io/nucleuscloud/devcontainer-features/helmfile:0.1.0": {
+		"ghcr.io/schlich/devcontainer-features/helmfile:1.0.0": {
 			"version": "v0.164.0"
 		},
 		// https://github.com/cypress-io/cypress-documentation/issues/2956#issuecomment-1691335689
