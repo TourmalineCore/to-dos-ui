@@ -19,85 +19,186 @@ on:
   # to allow to wait for a docker image to be published to proceed in another workflow
   workflow_call:
 
+env:
+  REGISTRY_IMAGE: pandyz/${{ github.event.repository.name }}
+
 jobs:
-  push_to_registry_amd64:
-    name: Push Docker image to Docker Hub
+  build:
     runs-on: ubuntu-22.04
-    permissions:
-      packages: write
-      contents: read
-      attestations: write
+    strategy:
+      fail-fast: false
+      matrix:
+        platform:
+          - linux/amd64
+          - linux/arm64
     steps:
-      - name: Check out the repo
-        uses: actions/checkout@v4
+      - name: Prepare
+        run: |
+          platform=${{ matrix.platform }}
+          echo "PLATFORM_PAIR=${platform//\//-}" >> $GITHUB_ENV
+
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY_IMAGE }}
+
       - name: Log in to Docker Hub
         uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
         with:
           username: ${{ secrets.DOCKER_HUB_READ_AND_WRITE_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_READ_AND_WRITE_TOKEN }}
 
-      - name: Extract metadata (tags, labels) for Docker
-        id: meta
-        uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
-        with:
-          images: pandyz/${{ github.event.repository.name }}
-          tags: |
-            # minimal (short sha)
-            type=sha
-            # full length sha
-            type=sha,format=long
-            # set latest tag for default branch
-            # https://github.com/docker/metadata-action/issues/171 explains how to tag latest only on default branch
-            type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', github.event.repository.default_branch) }}
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
 
-      - name: Build and push Docker image
-        id: push
-        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and push by digest
+        id: build
+        uses: docker/build-push-action@v6
         with:
-          context: .
-          file: ./Dockerfile
-          push: true
-          tags: ${{ steps.meta.outputs.tags }}
+          platforms: ${{ matrix.platform }}
           labels: ${{ steps.meta.outputs.labels }}
-          platforms: linux/amd64
+          tags: ${{ env.REGISTRY_IMAGE }}
+          outputs: type=image,push-by-digest=true,name-canonical=true,push=true
 
-  push_to_registry_arm64:
-    name: Push Docker image to Docker Hub
-    runs-on: ubuntu-22.04-arm
-    permissions:
-      packages: write
-      contents: read
-      attestations: write
+      - name: Export digest
+        run: |
+          mkdir -p ${{ runner.temp }}/digests
+          digest="${{ steps.build.outputs.digest }}"
+          touch "${{ runner.temp }}/digests/${digest#sha256:}"
+
+      - name: Upload digest
+        uses: actions/upload-artifact@v4
+        with:
+          name: digests-${{ env.PLATFORM_PAIR }}
+          path: ${{ runner.temp }}/digests/*
+          if-no-files-found: error
+          retention-days: 1
+
+  merge:
+    runs-on: ubuntu-latest
+    needs:
+      - build
     steps:
-      - name: Check out the repo
-        uses: actions/checkout@v4
+      - name: Download digests
+        uses: actions/download-artifact@v4
+        with:
+          path: ${{ runner.temp }}/digests
+          pattern: digests-*
+          merge-multiple: true
+
       - name: Log in to Docker Hub
         uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
         with:
           username: ${{ secrets.DOCKER_HUB_READ_AND_WRITE_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_READ_AND_WRITE_TOKEN }}
 
-      - name: Extract metadata (tags, labels) for Docker
-        id: meta
-        uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
-        with:
-          images: pandyz/${{ github.event.repository.name }}
-          tags: |
-            # minimal (short sha)
-            type=sha
-            # full length sha
-            type=sha,format=long
-            # set latest tag for default branch
-            # https://github.com/docker/metadata-action/issues/171 explains how to tag latest only on default branch
-            type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', github.event.repository.default_branch) }}
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
-      - name: Build and push Docker image
-        id: push
-        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v5
         with:
-          context: .
-          file: ./Dockerfile
-          push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-          platforms: linux/arm64
+          images: ${{ env.REGISTRY_IMAGE }}
+          tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+
+      - name: Create manifest list and push
+        working-directory: ${{ runner.temp }}/digests
+        run: |
+          docker buildx imagetools create $(jq -cr '.tags | map("-t " + .) | join(" ")' <<< "$DOCKER_METADATA_OUTPUT_JSON") \
+            $(printf '${{ env.REGISTRY_IMAGE }}@sha256:%s ' *)
+
+      - name: Inspect image
+        run: |
+          docker buildx imagetools inspect ${{ env.REGISTRY_IMAGE }}:${{ steps.meta.outputs.version }}
+
+# jobs:
+#   push_to_registry_amd64:
+#     name: Push Docker image to Docker Hub
+#     runs-on: ubuntu-22.04
+#     permissions:
+#       packages: write
+#       contents: read
+#       attestations: write
+#     steps:
+#       - name: Check out the repo
+#         uses: actions/checkout@v4
+#       - name: Log in to Docker Hub
+#         uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
+#         with:
+#           username: ${{ secrets.DOCKER_HUB_READ_AND_WRITE_USERNAME }}
+#           password: ${{ secrets.DOCKER_HUB_READ_AND_WRITE_TOKEN }}
+
+#       - name: Extract metadata (tags, labels) for Docker
+#         id: meta
+#         uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
+#         with:
+#           images: pandyz/${{ github.event.repository.name }}
+#           tags: |
+#             # minimal (short sha)
+#             type=sha
+#             # full length sha
+#             type=sha,format=long
+#             # set latest tag for default branch
+#             # https://github.com/docker/metadata-action/issues/171 explains how to tag latest only on default branch
+#             type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', github.event.repository.default_branch) }}
+
+#       - name: Build and push Docker image
+#         id: push
+#         uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
+#         with:
+#           context: .
+#           file: ./Dockerfile
+#           push: true
+#           tags: ${{ steps.meta.outputs.tags }}
+#           labels: ${{ steps.meta.outputs.labels }}
+#           platforms: linux/amd64
+
+#   push_to_registry_arm64:
+#     name: Push Docker image to Docker Hub
+#     runs-on: ubuntu-22.04-arm
+#     permissions:
+#       packages: write
+#       contents: read
+#       attestations: write
+#     steps:
+#       - name: Check out the repo
+#         uses: actions/checkout@v4
+#       - name: Log in to Docker Hub
+#         uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
+#         with:
+#           username: ${{ secrets.DOCKER_HUB_READ_AND_WRITE_USERNAME }}
+#           password: ${{ secrets.DOCKER_HUB_READ_AND_WRITE_TOKEN }}
+
+#       - name: Extract metadata (tags, labels) for Docker
+#         id: meta
+#         uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
+#         with:
+#           images: pandyz/${{ github.event.repository.name }}
+#           tags: |
+#             # minimal (short sha)
+#             type=sha
+#             # full length sha
+#             type=sha,format=long
+#             # set latest tag for default branch
+#             # https://github.com/docker/metadata-action/issues/171 explains how to tag latest only on default branch
+#             type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', github.event.repository.default_branch) }}
+
+#       - name: Build and push Docker image
+#         id: push
+#         uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
+#         with:
+#           context: .
+#           file: ./Dockerfile
+#           push: true
+#           tags: ${{ steps.meta.outputs.tags }}
+#           labels: ${{ steps.meta.outputs.labels }}
+#           platforms: linux/arm64
