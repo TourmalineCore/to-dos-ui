@@ -27,3 +27,4 @@ Dockerfile
 global-types.d.ts
 LICENSE
 README.md
+*.pdf
