@@ -18,15 +18,17 @@ export function ToDosPage() {
   )
 
   return (
-    <NewToDoStateContext.Provider value={newToDoState}>
-      <ToDosStateContext.Provider value={toDosState}>
-        <NewToDoContainer
-          onNewToDoAdded={() => toDosState.triggerToDosReload()}
-        />
-        <ToDosContainer 
-          onToDosCompleted={() => toDosState.triggerToDosReload()}
-        />
-      </ToDosStateContext.Provider>
-    </NewToDoStateContext.Provider>
+    <div data-cy="page-to-dos-visual">
+      <NewToDoStateContext.Provider value={newToDoState}>
+        <ToDosStateContext.Provider value={toDosState}>
+          <NewToDoContainer
+            onNewToDoAdded={() => toDosState.triggerToDosReload()}
+          />
+          <ToDosContainer
+            onToDosCompleted={() => toDosState.triggerToDosReload()}
+          />
+        </ToDosStateContext.Provider>
+      </NewToDoStateContext.Provider>
+    </div>
   )
 }

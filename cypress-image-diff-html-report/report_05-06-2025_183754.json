@@ -1,0 +1,31 @@
+{
+  "total": 1,
+  "totalPassed": 1,
+  "totalFailed": 0,
+  "totalSuites": 1,
+  "suites": [
+    {
+      "name": "visual.cy.ts",
+      "path": "cypress/e2e/visual.cy.ts",
+      "tests": [
+        {
+          "status": "pass",
+          "name": "visual.cy.ts-google-home-page",
+          "percentage": 0,
+          "failureThreshold": 0,
+          "specPath": "cypress/e2e/visual.cy.ts",
+          "specFilename": "visual.cy.ts",
+          "baselinePath": "cypress-image-diff-screenshots/baseline/visual.cy.ts-google-home-page.png",
+          "diffPath": "",
+          "comparisonPath": "cypress-image-diff-screenshots/comparison/visual.cy.ts-google-home-page.png"
+        }
+      ]
+    }
+  ],
+  "startedAt": "2025-06-05T13:37:54.789Z",
+  "endedAt": "2025-06-05T13:37:58.239Z",
+  "duration": 3450,
+  "browserName": "electron",
+  "browserVersion": "118.0.5993.159",
+  "cypressVersion": "13.17.0"
+}

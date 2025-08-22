@@ -21,6 +21,8 @@ import './commands'
 
 import { mount } from 'cypress/react18'
 
+import '../../src/styles/index.scss'
+
 window.__ENV__ = {
   VITE_API_ROOT: `http://test.com/to-dos-api`,
 }
@@ -34,6 +36,8 @@ declare global {
   namespace Cypress {
     interface Chainable {
       mount: typeof mount,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      compareSnapshot(name: string, options?: any): Chainable<Element>,
     }
   }
 }
@@ -42,3 +46,8 @@ Cypress.Commands.add(`mount`, mount)
 
 // Example use:
 // cy.mount(<MyComponent />)
+
+after(() => {
+  //custom task to generate report
+  cy.task(`generateReport`)
+})
