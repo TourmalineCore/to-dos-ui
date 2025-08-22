@@ -128,3 +128,4 @@ export default {
 Useful refs on how to build docker image with this UI and make its env configurable at docker run:
 - https://stackoverflow.com/a/78156859
 - https://vitejs.dev/guide/env-and-mode
+
