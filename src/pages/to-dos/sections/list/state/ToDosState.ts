@@ -3,7 +3,6 @@ import { ToDo } from '../../../../../api-types'
 
 export class ToDosState {
   private _toDos: ToDo[] = []
-  private _needToReloadToDos: boolean = false
   private _selectedToDoIds: number[] = []
 
   constructor() {
@@ -26,10 +25,6 @@ export class ToDosState {
     return this._selectedToDoIds
   }
 
-  get needToReloadToDos() {
-    return this._needToReloadToDos
-  }
-
   toggleToDoSelection({
     toDoId,
   }: {
@@ -47,9 +42,5 @@ export class ToDosState {
 
   clearSelection() {
     this._selectedToDoIds = []
-  }
-
-  triggerToDosReload() {
-    this._needToReloadToDos = !this._needToReloadToDos
   }
 }

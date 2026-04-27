@@ -5,12 +5,9 @@ import { NewToDoContent } from "./NewToDoContent"
 import { api } from "../../../../common/utils/HttpClient"
 import { NewToDoRequest, NewToDoResponse } from "../../../../api-types"
 import { AxiosResponse } from "axios"
+import { eventBus, EventBusType } from "../../event-bus"
 
-export const NewToDoContainer = observer(({
-  onNewToDoAdded,
-}: {
-  onNewToDoAdded: () => unknown,
-}) => {
+export const NewToDoContainer = observer(() => {
   const newToDoState = useContext(NewToDoStateContext)
 
   return (
@@ -31,6 +28,6 @@ export const NewToDoContainer = observer(({
       },
     )
 
-    onNewToDoAdded()
+    eventBus.publish(EventBusType.TO_DOS_CHANGED)
   }
 })

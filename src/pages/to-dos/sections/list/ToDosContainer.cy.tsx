@@ -79,7 +79,7 @@ function selectionTests() {
           2,
         ],
       })
-      
+
     cy
       .get<ToDosState>(`@toDosState`)
       .should((toDosState) => {
@@ -97,9 +97,7 @@ function mountComponent() {
 
   cy.mount(
     <ToDosStateContext.Provider value={toDosState}>
-      <ToDosContainer 
-        onToDosCompleted={() => {}}
-      />
+      <ToDosContainer />
     </ToDosStateContext.Provider>,
   )
 }

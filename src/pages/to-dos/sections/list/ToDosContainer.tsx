@@ -1,17 +1,31 @@
-import { useContext, useEffect } from "react"
+import { useContext, useEffect, useState } from "react"
 import { ToDosStateContext } from "./state/ToDosStateContext"
 import { observer } from "mobx-react-lite"
 import { ToDosContent } from "./ToDosContent"
 import { api } from "../../../../common/utils/HttpClient"
 import { CompleteToDosRequest, ToDosResponse } from "../../../../api-types"
 import { AxiosResponse } from "axios"
+import { eventBus, EventBusType } from "../../event-bus"
 
-export const ToDosContainer = observer(({
-  onToDosCompleted,
-}: {
-  onToDosCompleted: () => unknown,
-}) => {
+export const ToDosContainer = observer(() => {
   const toDosState = useContext(ToDosStateContext)
+
+  const [
+    needToReloadToDos,
+    setNeedToReloadToDos,
+  ] = useState(false)
+
+  useEffect(() => {
+    const unsubscribeToDosChanged = eventBus.subscribe(EventBusType.TO_DOS_CHANGED, () => {
+      setNeedToReloadToDos(!needToReloadToDos)
+    })
+
+    return () => {
+      unsubscribeToDosChanged()
+    }
+  }, [
+    needToReloadToDos,
+  ])
 
   useEffect(() => {
     async function loadToDosAsync() {
@@ -28,7 +42,7 @@ export const ToDosContainer = observer(({
 
     loadToDosAsync()
   }, [
-    toDosState.needToReloadToDos,
+    needToReloadToDos,
   ])
 
   return (
@@ -51,6 +65,6 @@ export const ToDosContainer = observer(({
 
     toDosState.clearSelection()
 
-    onToDosCompleted()
+    setNeedToReloadToDos(!needToReloadToDos)
   }
 })

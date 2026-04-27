@@ -20,12 +20,8 @@ export function ToDosPage() {
   return (
     <NewToDoStateContext.Provider value={newToDoState}>
       <ToDosStateContext.Provider value={toDosState}>
-        <NewToDoContainer
-          onNewToDoAdded={() => toDosState.triggerToDosReload()}
-        />
-        <ToDosContainer 
-          onToDosCompleted={() => toDosState.triggerToDosReload()}
-        />
+        <NewToDoContainer />
+        <ToDosContainer />
       </ToDosStateContext.Provider>
     </NewToDoStateContext.Provider>
   )
