@@ -1,37 +1,24 @@
 /// <reference types="cypress" />
-// ***********************************************
-// This example commands.ts shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
-//
-// declare global {
-//   namespace Cypress {
-//     interface Chainable {
-//       login(email: string, password: string): Chainable<void>
-//       drag(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       dismiss(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       visit(originalFn: CommandOriginalFn, url: string, options: Partial<VisitOptions>): Chainable<Element>
-//     }
-//   }
-// }
+import compareSnapshotCommand from 'cypress-image-diff-js'
+
+Cypress.on(`uncaught:exception`, () => false)
+
+Cypress.on(`uncaught:exception`, (err) => {
+  // we expect a 3rd party library error with message 'list not defined'
+  // and don't want to fail the test so we return false
+  if (err.message.includes(`Request failed with status code`)) {
+    return false
+  }
+  // we still want to ensure there are no other unexpected
+  // errors, so we let them fail the test
+
+  return true
+})
+
+Cypress.Commands.add(`getByData`, (selector) => cy.get(`[data-cy=${selector}]`))
+Cypress.Screenshot.defaults({
+  capture: `viewport`,
+  scale: false,
+})
+
+compareSnapshotCommand()

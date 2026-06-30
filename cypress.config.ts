@@ -1,14 +1,28 @@
 import { defineConfig } from "cypress"
+import getCompareSnapshotsPlugin from "cypress-image-diff-js/plugin"
 
 // eslint-disable-next-line import/no-default-export
 export default defineConfig({
   e2e: {
+    viewportWidth: 1200,
+    viewportHeight: 660,
+    specPattern: `cypress/e2e/**/*.cy.ts`,
     baseUrl: `http://localhost:5173`,
+    setupNodeEvents(on, config) {
+      return getCompareSnapshotsPlugin(on, config)
+    },
+    video: true,
+    screenshotOnRunFailure: true,
   },
   env: {
     API_URL: `http://localhost:5005/api/to-dos-api`,
   },
   component: {
+    setupNodeEvents(on, config) {
+      return getCompareSnapshotsPlugin(on, config)
+    },
+    video: true,
+    screenshotOnRunFailure: true,
     devServer: {
       framework: `react`,
       bundler: `vite`,

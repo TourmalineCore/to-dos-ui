@@ -4,8 +4,10 @@ import { defineConfig } from "cypress"
 export default defineConfig({
   e2e: {
     baseUrl: `http://localhost:30080`,
+    video: true,
+    screenshotOnRunFailure: true,
   },
   env: {
     API_URL: `http://localhost:30080/api/to-dos-api`,
-  }
+  },
 })
