@@ -42,14 +42,21 @@ jobs:
         uses: devcontainers/ci@v0.3
         with:
           runCmd: |
-            # we need to override "latest" image tag of ui inside local-env to run e2e against the current commit ui version and not against latest from master
-            yq -i '.image.tag = "sha-${{ github.sha }}"' deploy/values-to-dos-ui.yaml.gotmpl
-            
-            kind create cluster --name to-dos --config kind-local-config.yaml --kubeconfig ./.to-dos-cluster-kubeconfig
-            # we need to properly expose KUBECONFIG as an absolute path, pwd prints current working directory path
-            export KUBECONFIG=$(pwd)/.to-dos-cluster-kubeconfig
-
-            helmfile --environment local --namespace local -f deploy/helmfile.yaml apply
+              # Get the branch name and URL-encode it
+              BRANCH_NAME="${{ github.head_ref || github.ref_name }}"
+              # URL encode the branch name (replace # with %23)
+              ENCODED_BRANCH=$(echo "$BRANCH_NAME" | sed 's/#/%23/g')
+              echo "Using encoded branch: $ENCODED_BRANCH"
+              
+              # we need to override "latest" image tag of ui inside local-env to run e2e against the current commit ui version and not against latest from master
+              yq -i '.image.tag = "sha-${{ github.sha }}"' deploy/values-to-dos-ui.yaml.gotmpl
+              
+              kind create cluster --name to-dos --config kind-local-config.yaml --kubeconfig ./.to-dos-cluster-kubeconfig
+              export KUBECONFIG=$(pwd)/.to-dos-cluster-kubeconfig
+              
+              # Pass the encoded branch
+              export TO_DOS_UI_BRANCH="$ENCODED_BRANCH"
+              helmfile --environment local --namespace local -f deploy/helmfile.yaml apply
           push: never
           # this variable is used by local-env helmfile to use current feature branch helm chart values.yaml file
           # this is needed for a case when as part of the feature the chart was changed and is different from master branch
