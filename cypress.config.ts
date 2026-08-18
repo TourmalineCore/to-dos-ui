@@ -11,7 +11,6 @@ export default defineConfig({
     setupNodeEvents(on, config) {
       return getCompareSnapshotsPlugin(on, config)
     },
-    video: true,
     screenshotOnRunFailure: true,
   },
   env: {
@@ -21,7 +20,6 @@ export default defineConfig({
     setupNodeEvents(on, config) {
       return getCompareSnapshotsPlugin(on, config)
     },
-    video: true,
     screenshotOnRunFailure: true,
     devServer: {
       framework: `react`,
