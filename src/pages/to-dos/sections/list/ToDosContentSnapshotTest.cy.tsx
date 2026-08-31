@@ -6,8 +6,12 @@ import { ToDosContent } from "./ToDosContent"
 
 export const VIEWPORTS = [
   {
-    width: 1024,
-    height: 768,
+    width: 343,
+    height: 408,
+  },
+  {
+    width: 460,
+    height: 408,
   },
 ]
 
@@ -35,7 +39,7 @@ describe(`ToDosContent Snapshot test`, () => {
         .then((win) => win.document.fonts.ready)
 
       cy
-        .getByData(`to-dos-content`)
+        .get(`[data-cy="to-dos-content"]`)
         .compareSnapshot(`/${viewport.width}`, {
           capture: `viewport`,
         })
