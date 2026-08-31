@@ -21,6 +21,7 @@ body {
   padding: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: black;
 }
 
 *,
@@ -56,8 +57,16 @@ h1 {
   line-height: 1.1;
 }
 
-h2, h3 {
-  margin: 0 ;
+h2,
+h3 {
+  margin: 0;
+}
+
+ul,
+li {
+  padding: 0;
+  margin: 0;
+  list-style: none;
 }
 
 button {
@@ -102,6 +111,6 @@ button:focus-visible {
   margin: auto;
 
   input {
-    font-size: 40px;
+    font-size: 30px;
   }
 }
