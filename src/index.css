@@ -12,6 +12,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
+  width: 100%;
 }
 
 
@@ -107,8 +108,9 @@ button:focus-visible {
 
 /* for Workshop presentation */
 #root {
-  font-size: 28px;
-  margin: auto;
+  width: 100%;
+  /* font-size: 28px; */
+  /* margin: auto; */
 
   input {
     font-size: 30px;
