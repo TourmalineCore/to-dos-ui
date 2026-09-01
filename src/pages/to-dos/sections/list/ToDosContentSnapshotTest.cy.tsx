@@ -49,13 +49,30 @@ describe(`ToDosContent Snapshot test`, () => {
 
 function mountComponent() {
   const newToDoStateContext = new NewToDoState()
-  const toDosStateContext = new ToDosState()
+  const toDosState = new ToDosState()
+
+  toDosState.initialize({
+    toDos: [
+      {
+        id: 1,
+        name: `Fifth`,
+      },
+      {
+        id: 2,
+        name: `Sixth`,
+      },
+    ],
+  })
+
+  toDosState.toggleToDoSelection({
+    toDoId: 2,
+  })
 
   cy
     .mount(
 
       <NewToDoStateContext.Provider value={newToDoStateContext}>
-        <ToDosStateContext.Provider value={toDosStateContext}>
+        <ToDosStateContext.Provider value={toDosState}>
           <ToDosContent onCompleteClick={() => { }} />
         </ToDosStateContext.Provider>
       </NewToDoStateContext.Provider>,
