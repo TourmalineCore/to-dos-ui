@@ -1,37 +1,34 @@
 .to-dos {
-  /* border: 3px solid red; */
-  margin-top: 20px;
-  margin: 40px auto;
-  padding: 22px 28px;
-  background: black;
+  padding: 15px 28px;
+  background-color: black;
+  width: 343px;
+  height: 408px;
+  letter-spacing: -0.01em;
+  color: #ffffff;
 }
 
 .to-dos__complete-button {
-  padding: 10px 32px 12px 34px;
-  margin-bottom: 58px;
-  background: #016FFF;
-  color: #ffffff;
+  padding: 12px 34px;
+  /* to uncomment during workshop */
+  /* padding: 10px 34px 12px 32px; */
+  margin-bottom: 57px;
+  background-color: #016FFF;
+  color: inherit;
   border: none;
-  border-radius: 2px;
+  /* to uncomment during workshop */
+  /* border-radius: 2px; */
   font-size: 16px;
-  font-weight: 500;
-  cursor: pointer;
   transition: all 0.3s ease;
-  letter-spacing: -1%;
   line-height: 100%;
-  box-shadow: 0 2px 8px rgba(74, 108, 247, 0.2);
 }
 
 .to-dos__complete-button:disabled {
-  background: #262728;
-  color: #fff;
-  box-shadow: none;
+  background-color: #262728;
 }
 
 .to-dos__item {
   display: flex;
   align-items: center;
-  gap: 14px;
   padding-left: 16px;
 }
 
@@ -51,8 +48,6 @@
   padding-left: 40px;
   font-size: 18px;
   line-height: 1;
-  letter-spacing: -1%;
-  color: #fff;
   cursor: pointer;
   transition: all 0.2s ease;
   width: 100%;
@@ -68,17 +63,17 @@
   width: 24px;
   height: 24px;
   border: 2px solid #B8BFCC;
-  border-radius: 3.6px;
-  background: black;
+  /* to uncomment during workshop */
+  /* border-radius: 3.6px; */
+  background-color: black;
   transition: all 0.25s ease;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
 }
 
 .to-dos__label::after {
   content: '';
   position: absolute;
   left: 9px;
-  top: 50%;
+  top: 40%;
   transform: translateY(-50%) scale(0);
   width: 8px;
   height: 15px;
@@ -89,11 +84,47 @@
 }
 
 .to-dos__input:checked+.to-dos__label::before {
-  background: #016FFF;
+  background-color: #016FFF;
   border-color: #016FFF;
-  box-shadow: 0 2px 8px rgba(74, 108, 247, 0.3);
 }
 
 .to-dos__input:checked+.to-dos__label::after {
   transform: translateY(-50%) scale(1) rotate(45deg);
+}
+
+@media (min-width: 460px) {
+  .to-dos {
+    width: 460px;
+    height: 408px;
+    padding: 25px 28px;
+  }
+
+  .to-dos__label {
+    font-size: 16px;
+    padding-left: 34px;
+  }
+
+  .to-dos__label::before {
+    width: 20px;
+    height: 20px;
+  }
+
+  .to-dos__label::after {
+    left: 7px;
+    top: 44%;
+    width: 7px;
+    height: 12px;
+  }
+
+  .to-dos__item {
+    padding-left: 12px;
+  }
+
+  .to-dos__item+.to-dos__item {
+    margin-top: 24px;
+  }
+
+  .to-dos__complete-button {
+    margin-bottom: 40px;
+  }
 }
