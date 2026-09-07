@@ -46,8 +46,18 @@ npm run generate-api-types
 ## Tests Execution
 
 ```bash
-# to run component tests (no backend needed)
+# to run component tests (no backend needed) including screenshot tests
 npm run cypress:run:component
+
+# to open the Cypress Test Runner in component testing mode using the built-in Electron browser, available at http://localhost:6080/
+npm run cypress:open:component 
+
+# to generate the report for failed screenshots 
+# in /cypress-image-diff-html-report folder
+npx cypress-image-diff-html-report generate
+
+# to view the report in the browser without saving on disc
+npx cypress-image-diff-html-report start
 
 # to run e2e tests against local ui (NOT local-env one!)
 npm run cypress:run:e2e
