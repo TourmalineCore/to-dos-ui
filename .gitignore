@@ -26,3 +26,4 @@ dist-ssr
 
 cypress/downloads
 cypress-image-diff-html-report/
+cypress/screenshots/**/*.png
