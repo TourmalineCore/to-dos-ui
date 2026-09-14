@@ -52,12 +52,11 @@ npm run cypress:run:component
 # to open the Cypress Test Runner in component testing mode using the built-in Electron browser, available at http://localhost:6080/
 npm run cypress:open:component 
 
-# to generate the report for failed screenshots 
-# in /cypress-image-diff-html-report folder
-npx cypress-image-diff-html-report generate
+# to run screenshot tests separately
+npm run cypress:run:component:snapshot
 
-# to view the report in the browser without saving on disc
-npx cypress-image-diff-html-report start
+# to view the report for failed screenshots in the browser
+npm run cypress:snapshot:report
 
 # to run e2e tests against local ui (NOT local-env one!)
 npm run cypress:run:e2e
