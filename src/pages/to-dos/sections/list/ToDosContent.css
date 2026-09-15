@@ -1,25 +1,24 @@
 .to-dos {
-  padding: 15px 28px;
-  background-color: black;
+  padding: 22px 27px;
+  background-color: #000;
   width: 343px;
   height: 408px;
-  letter-spacing: -0.01em;
-  color: #ffffff;
+  color: #FFF;
 }
 
 .to-dos__complete-button {
-  padding: 12px 34px;
+  display: block;
+  padding: 10px 32px 12px;
+
   /* to uncomment during workshop */
   /* padding: 10px 34px 12px 32px; */
   margin-bottom: 57px;
   background-color: #016FFF;
-  color: inherit;
   border: none;
-  /* to uncomment during workshop */
-  /* border-radius: 2px; */
+  border-radius: 2px;
   font-size: 16px;
-  transition: all 0.3s ease;
   line-height: 100%;
+  letter-spacing: -0.01em;
 }
 
 .to-dos__complete-button:disabled {
@@ -33,7 +32,7 @@
 }
 
 .to-dos__item+.to-dos__item {
-  margin-top: 36px;
+  margin-top: 38px;
 }
 
 .to-dos__input {
@@ -46,12 +45,12 @@
 .to-dos__label {
   position: relative;
   padding-left: 40px;
-  font-size: 18px;
-  line-height: 1;
-  cursor: pointer;
-  transition: all 0.2s ease;
   width: 100%;
+  font-size: 18px;
   font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  cursor: pointer;
 }
 
 .to-dos__label::before {
@@ -59,14 +58,13 @@
   position: absolute;
   left: 0;
   top: 50%;
-  transform: translateY(-50%);
   width: 24px;
   height: 24px;
   border: 2px solid #B8BFCC;
   /* to uncomment during workshop */
   /* border-radius: 3.6px; */
-  background-color: black;
-  transition: all 0.25s ease;
+  background-color: #000;
+  transform: translateY(-50%);
 }
 
 .to-dos__label::after {
@@ -74,13 +72,12 @@
   position: absolute;
   left: 9px;
   top: 40%;
-  transform: translateY(-50%) scale(0);
   width: 8px;
   height: 15px;
   border: solid #ffffff;
   border-width: 0 2.5px 2.5px 0;
+  transform: translateY(-50%) scale(0);
   transform-origin: center;
-  transition: all 0.2s ease;
 }
 
 .to-dos__input:checked+.to-dos__label::before {
@@ -88,15 +85,12 @@
   border-color: #016FFF;
 }
 
-.to-dos__input:checked+.to-dos__label::after {
-  transform: translateY(-50%) scale(1) rotate(45deg);
-}
 
 @media (min-width: 460px) {
   .to-dos {
     width: 460px;
     height: 408px;
-    padding: 25px 28px;
+    padding: 32px 28px;
   }
 
   .to-dos__label {
