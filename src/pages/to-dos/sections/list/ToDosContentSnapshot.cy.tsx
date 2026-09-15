@@ -23,7 +23,7 @@ describe(`ToDosContent Snapshot test`, () => {
       mountComponent()
 
       cy
-        .get(`[data-cy="to-dos-content"]`)
+        .get(`[data-cy="to-dos"]`)
         .compareSnapshot(`/${viewport.width}`)
     })
   })

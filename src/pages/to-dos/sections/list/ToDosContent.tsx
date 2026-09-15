@@ -15,15 +15,12 @@ export const ToDosContent = observer(({
   return (
     <div
       className="to-dos"
-      data-cy="to-dos-content">
+      data-cy="to-dos">
       <CompleteToDosButton
         className="to-dos__complete-button"
         onClick={onCompleteClick}
       />
-      <ul
-        className="to-dos__list"
-        data-cy="to-dos"
-      >
+      <ul className="to-dos__list">
         {
           toDosState
             .toDos
