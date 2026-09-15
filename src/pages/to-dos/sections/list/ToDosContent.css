@@ -6,7 +6,7 @@
   color: #FFF;
 }
 
-.to-dos__complete-button {
+.to-dos-complete-button {
   display: block;
   padding: 10px 32px 12px;
 
@@ -21,28 +21,28 @@
   letter-spacing: -0.01em;
 }
 
-.to-dos__complete-button:disabled {
+.to-dos-complete-button:disabled {
   background-color: #262728;
 }
 
-.to-dos__item {
+.to-dos-item {
   display: flex;
   align-items: center;
   padding-left: 16px;
 }
 
-.to-dos__item+.to-dos__item {
+.to-dos-item+.to-dos-item {
   margin-top: 38px;
 }
 
-.to-dos__input {
+.to-dos-input {
   position: absolute;
   opacity: 0;
   width: 0;
   height: 0;
 }
 
-.to-dos__label {
+.to-dos-label {
   position: relative;
   padding-left: 40px;
   width: 100%;
@@ -53,7 +53,7 @@
   cursor: pointer;
 }
 
-.to-dos__label::before {
+.to-dos-label::before {
   content: '';
   position: absolute;
   left: 0;
@@ -67,7 +67,7 @@
   transform: translateY(-50%);
 }
 
-.to-dos__label::after {
+.to-dos-label::after {
   content: '';
   position: absolute;
   left: 9px;
@@ -80,7 +80,7 @@
   transform-origin: center;
 }
 
-.to-dos__input:checked+.to-dos__label::before {
+.to-dos-input:checked+.to-dos-label::before {
   background-color: #016FFF;
   border-color: #016FFF;
 }
@@ -93,32 +93,32 @@
     padding: 32px 28px;
   }
 
-  .to-dos__label {
+  .to-dos-label {
     font-size: 16px;
     padding-left: 34px;
   }
 
-  .to-dos__label::before {
+  .to-dos-label::before {
     width: 20px;
     height: 20px;
   }
 
-  .to-dos__label::after {
+  .to-dos-label::after {
     left: 7px;
     top: 44%;
     width: 7px;
     height: 12px;
   }
 
-  .to-dos__item {
+  .to-dos-item {
     padding-left: 12px;
   }
 
-  .to-dos__item+.to-dos__item {
+  .to-dos-item+.to-dos-item {
     margin-top: 24px;
   }
 
-  .to-dos__complete-button {
+  .to-dos-complete-button {
     margin-bottom: 40px;
   }
 }

@@ -17,10 +17,10 @@ export const ToDosContent = observer(({
       className="to-dos"
       data-cy="to-dos">
       <CompleteToDosButton
-        className="to-dos__complete-button"
+        className="to-dos-complete-button"
         onClick={onCompleteClick}
       />
-      <ul className="to-dos__list">
+      <ul className="to-dos-list">
         {
           toDosState
             .toDos
@@ -30,13 +30,13 @@ export const ToDosContent = observer(({
             }) => (
               <li
                 key={`to-do-${id}`}
-                className="to-dos__item"
+                className="to-dos-item"
                 data-cy="to-do"
               >
                 <input
                   id={`to-do-${id}-checkbox`}
                   type="checkbox"
-                  className="to-dos__input"
+                  className="to-dos-input"
                   onChange={() => toDosState.toggleToDoSelection({
                     toDoId: id,
                   })}
@@ -44,7 +44,7 @@ export const ToDosContent = observer(({
                 />
                 <label
                   htmlFor={`to-do-${id}-checkbox`}
-                  className="to-dos__label"
+                  className="to-dos-label"
                 >
                   {name}
                 </label>
