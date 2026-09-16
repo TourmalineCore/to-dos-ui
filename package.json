@@ -19,9 +19,9 @@
     "cypress:run:e2e": "cypress run --e2e --browser electron",
     "cypress:open:e2e:local-env": "cypress open --e2e --browser electron --config baseUrl=http://localhost:30080 --env API_URL=http://localhost:30080/api/to-dos-api",
     "cypress:run:e2e:local-env": "cypress run --e2e --browser electron --config baseUrl=http://localhost:30080 --env API_URL=http://localhost:30080/api/to-dos-api",
-    "cypress:run:component:snapshot": "cypress run --component --browser electron --spec \"src/**/*Snapshot.cy.tsx\"",
-    "cypress:snapshot:update ": "cypress-image-diff -u",
-    "cypress:snapshot:report": "npx cypress-image-diff-html-report start",
+    "cypress:run:snapshot": "cypress run --component --browser electron --spec \"src/**/*Snapshot.cy.tsx\"",
+    "cypress:open:snapshot": "npx cypress-image-diff-html-report start",
+    "cypress:snapshot:update-baseline": "cypress-image-diff -u",
     "generate-api-types": "docker-compose -f ./api-types/docker-compose.yml up --build ts_generator"
   },
   "dependencies": {
