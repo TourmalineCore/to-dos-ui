@@ -85,6 +85,9 @@
   border-color: #016FFF;
 }
 
+.to-dos-input:checked+.to-dos-label::after {
+  transform: translateY(-50%) scale(1) rotate(45deg);
+}
 
 @media (min-width: 460px) {
   .to-dos {
