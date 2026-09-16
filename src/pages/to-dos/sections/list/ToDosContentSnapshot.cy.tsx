@@ -6,10 +6,12 @@ import { ToDosContent } from "./ToDosContent"
 
 export const VIEWPORTS = [
   {
+    name: `mobile`,
     width: 343,
     height: 408,
   },
   {
+    name: `desktop`,
     width: 460,
     height: 408,
   },
@@ -24,7 +26,7 @@ describe(`ToDosContent Snapshot test`, () => {
 
       cy
         .get(`[data-cy="to-dos"]`)
-        .compareSnapshot(`/${viewport.width}`)
+        .compareSnapshot(`/${viewport.name}`)
     })
   })
 })
