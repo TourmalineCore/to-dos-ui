@@ -53,10 +53,13 @@ npm run cypress:run:component
 npm run cypress:open:component 
 
 # to run screenshot tests separately
-npm run cypress:run:component:snapshot
+npm run cypress:run:snapshot
 
 # to view the report for failed screenshots in the browser
-npm run cypress:snapshot:report
+npm run cypress:open:snapshot
+
+# to update baseline images 
+npm run cypress:snapshot:update-baseline
 
 # to run e2e tests against local ui (NOT local-env one!)
 npm run cypress:run:e2e
