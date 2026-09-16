@@ -46,8 +46,20 @@ npm run generate-api-types
 ## Tests Execution
 
 ```bash
-# to run component tests (no backend needed)
+# to run component tests (no backend needed) including screenshot tests
 npm run cypress:run:component
+
+# to open the Cypress Test Runner in component testing mode using the built-in Electron browser, available at http://localhost:6080/
+npm run cypress:open:component 
+
+# to run screenshot tests separately
+npm run cypress:run:snapshot
+
+# to view the report for failed screenshots in the browser
+npm run cypress:open:snapshot
+
+# to update baseline images 
+npm run cypress:snapshot:update-baseline
 
 # to run e2e tests against local ui (NOT local-env one!)
 npm run cypress:run:e2e

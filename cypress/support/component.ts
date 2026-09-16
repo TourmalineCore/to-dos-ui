@@ -25,6 +25,7 @@ window.__ENV__ = {
   VITE_API_ROOT: `http://test.com/to-dos-api`,
 }
 
+import '../../src/index.css'
 // Augment the Cypress namespace to include type definitions for
 // your custom command.
 // Alternatively, can be defined in cypress/support/component.d.ts

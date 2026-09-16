@@ -1,3 +1,5 @@
+import "./ToDosContent.css"
+
 import { useContext } from "react"
 import { ToDosStateContext } from "./state/ToDosStateContext"
 import { observer } from "mobx-react-lite"
@@ -11,13 +13,14 @@ export const ToDosContent = observer(({
   const toDosState = useContext(ToDosStateContext)
 
   return (
-    <>
+    <div
+      className="to-dos"
+      data-cy="to-dos">
       <CompleteToDosButton
+        className="to-dos-complete-button"
         onClick={onCompleteClick}
       />
-      <ul
-        data-cy="to-dos"
-      >
+      <ul className="to-dos-list">
         {
           toDosState
             .toDos
@@ -27,18 +30,21 @@ export const ToDosContent = observer(({
             }) => (
               <li
                 key={`to-do-${id}`}
+                className="to-dos-item"
                 data-cy="to-do"
               >
                 <input
                   id={`to-do-${id}-checkbox`}
                   type="checkbox"
+                  className="to-dos-input"
                   onChange={() => toDosState.toggleToDoSelection({
-                    toDoId: id, 
+                    toDoId: id,
                   })}
                   checked={toDosState.selectedToDoIds.includes(id)}
                 />
-                <label 
+                <label
                   htmlFor={`to-do-${id}-checkbox`}
+                  className="to-dos-label"
                 >
                   {name}
                 </label>
@@ -46,6 +52,6 @@ export const ToDosContent = observer(({
             ))
         }
       </ul>
-    </>
+    </div>
   )
 })
