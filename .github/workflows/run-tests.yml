@@ -15,12 +15,18 @@ jobs:
       - name: Checkout ui
         uses: actions/checkout@v4
 
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check formatting
+        run: npm run format:check
+
       - name: Cypress run component tests
         uses: cypress-io/github-action@v6
         with:
           component: true
           browser: chrome
-  
+
   # this is needed to wait for the new docker image to be build and published to the registry
   # so that we can use the image to run ui of the needed commit related version as part of local-env
   # the idea is taken from here https://stackoverflow.com/a/71489231
@@ -44,7 +50,7 @@ jobs:
           runCmd: |
             # we need to override "latest" image tag of ui inside local-env to run e2e against the current commit ui version and not against latest from master
             yq -i '.image.tag = "sha-${{ github.sha }}"' deploy/values-to-dos-ui.yaml.gotmpl
-            
+
             kind create cluster --name to-dos --config kind-local-config.yaml --kubeconfig ./.to-dos-cluster-kubeconfig
             # we need to properly expose KUBECONFIG as an absolute path, pwd prints current working directory path
             export KUBECONFIG=$(pwd)/.to-dos-cluster-kubeconfig
@@ -57,13 +63,13 @@ jobs:
           # https://stackoverflow.com/a/71158878
           env: |
             TO_DOS_UI_BRANCH=${{ github.head_ref || github.ref_name }}
-      
+
       - name: Checkout ui
         uses: actions/checkout@v4
 
       - name: Cypress run e2e tests
         uses: cypress-io/github-action@v6
         with:
-          wait-on: "http://localhost:30080" 
+          wait-on: "http://localhost:30080"
           browser: chrome
           config-file: cypress.config.local-env.ts

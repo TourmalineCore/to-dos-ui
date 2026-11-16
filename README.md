@@ -11,6 +11,7 @@ More info about the project and its related repos can be found here: [to-dos-doc
 - You need to run [API](https://github.com/TourmalineCore/to-dos-api) where UI makes network calls.
 
 ### If you develop inside Dev Containers
+
 - [VSCode](https://code.visualstudio.com/)
 - [Dev Containers Extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
 
@@ -56,7 +57,7 @@ npm run cypress:run:e2e
 npm run cypress:run:e2e:local-env
 ```
 
->Note: There is an issue that Cypress doesn't see Chrome from inside a Dev Container for arm64 platforms. For now it is fixed by changing `--browser chrome` in `package.json` to `--browser electron`. Cypress note regarding that: https://github.com/cypress-io/cypress-docker-images/tree/master/included#platforms.
+> Note: There is an issue that Cypress doesn't see Chrome from inside a Dev Container for arm64 platforms. For now it is fixed by changing `--browser chrome` in `package.json` to `--browser electron`. Cypress note regarding that: https://github.com/cypress-io/cypress-docker-images/tree/master/included#platforms.
 
 ## TypeScript (VSCode only)
 
@@ -81,11 +82,13 @@ docker build -t to-dos-ui .
 ```
 
 ## Docker Local Run
+
 ```bash
 docker run -t to-dos-ui --publish 5173:80 --env VITE_API_ROOT="http://localhost:5005/to-dos-api" --rm
 ```
 
 ## Helm Local
+
 ```bash
 helmfile --namespace local -f ci/helmfile.yaml template
 ```
@@ -109,22 +112,23 @@ If you are developing a production application, we recommend updating the config
 export default {
   // other rules...
   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
+    ecmaVersion: "latest",
+    sourceType: "module",
+    project: ["./tsconfig.json", "./tsconfig.node.json"],
     tsconfigRootDir: __dirname,
   },
-}
+};
 ```
 
 - Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
 - Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
 - Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
 
->Note: ESLint configuration was tuned and different from the template default setup
+> Note: ESLint configuration was tuned and different from the template default setup
 
 ## Env (for future)
 
 Useful refs on how to build docker image with this UI and make its env configurable at docker run:
+
 - https://stackoverflow.com/a/78156859
 - https://vitejs.dev/guide/env-and-mode

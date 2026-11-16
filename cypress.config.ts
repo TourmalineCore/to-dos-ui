@@ -1,4 +1,4 @@
-import { defineConfig } from "cypress"
+import { defineConfig } from "cypress";
 
 // eslint-disable-next-line import/no-default-export
 export default defineConfig({
@@ -16,4 +16,4 @@ export default defineConfig({
     // that it quickly fails during the workshop
     defaultCommandTimeout: 500,
   },
-})
+});

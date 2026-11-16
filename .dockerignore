@@ -19,7 +19,9 @@ src/**/*.cy.tsx
 
 # root level files
 .dockerignore
-.eslintrc
+.eslintrc.cjs
+.prettierrc.json
+.prettierignore
 .gitattributes
 .gitignore
 cypress.config.ts
