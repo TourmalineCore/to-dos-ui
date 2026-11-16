@@ -4,13 +4,10 @@ describe(`Home Smoke`, () => {
   WHEN click on ToDos page link
   SHOULD navigate there
   `, () => {
-    cy.visit(`/`)
+    cy.visit(`/`);
 
-    cy
-      .get(`[data-cy="to-dos-page-link"]`)
-      .click()
+    cy.get(`[data-cy="to-dos-page-link"]`).click();
 
-    cy.get(`[data-cy="to-dos"]`)
-      .should(`exist`)
-  })
-})
+    cy.get(`[data-cy="to-dos"]`).should(`exist`);
+  });
+});

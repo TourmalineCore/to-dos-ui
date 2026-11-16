@@ -20,8 +20,8 @@ jobs:
       - name: Deploy
         uses: helmfile/helmfile-action@v1.9.0
         with:
-          helmfile-version: 'v0.164.0'
-          helm-version: 'v3.14.4'
+          helmfile-version: "v0.164.0"
+          helm-version: "v3.14.4"
           helmfile-args: >
             apply 
             --namespace prod

@@ -1,6 +1,7 @@
 {
   "recommendations": [
     "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
     "ms-vscode-remote.remote-containers",
     "cs50.vscode-presentation-mode",
     "k--kato.intellij-idea-keybindings",

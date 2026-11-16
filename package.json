@@ -19,7 +19,9 @@
     "cypress:run:e2e": "cypress run --e2e --browser electron",
     "cypress:open:e2e:local-env": "cypress open --e2e --browser electron --config baseUrl=http://localhost:30080 --env API_URL=http://localhost:30080/api/to-dos-api",
     "cypress:run:e2e:local-env": "cypress run --e2e --browser electron --config baseUrl=http://localhost:30080 --env API_URL=http://localhost:30080/api/to-dos-api",
-    "generate-api-types": "docker-compose -f ./api-types/docker-compose.yml up --build ts_generator"
+    "generate-api-types": "docker-compose -f ./api-types/docker-compose.yml up --build ts_generator",
+    "format": "prettier . --write",
+    "format:check": "prettier . --check"
   },
   "dependencies": {
     "axios": "^1.6.7",
@@ -39,10 +41,10 @@
     "eslint": "^8.56.0",
     "eslint-plugin-cypress": "^2.15.1",
     "eslint-plugin-import": "^2.29.1",
-    "eslint-plugin-react": "^7.34.1",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
     "npm-run-all": "^4.1.5",
+    "prettier": "3.10.1",
     "typescript": "^5.2.2",
     "vite": "^5.1.4"
   }

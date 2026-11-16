@@ -1,13 +1,13 @@
-import { ToDo } from "../../../../api-types"
-import { ToDosContent } from "./ToDosContent"
-import { ToDosState } from "./state/ToDosState"
-import { ToDosStateContext } from "./state/ToDosStateContext"
+import { ToDo } from "../../../../api-types";
+import { ToDosContent } from "./ToDosContent";
+import { ToDosState } from "./state/ToDosState";
+import { ToDosStateContext } from "./state/ToDosStateContext";
 
 describe(`ToDosContent`, () => {
-  describe(`Initialization`, initializationTests)
+  describe(`Initialization`, initializationTests);
 
-  describe(`Selection`, selectionTests)
-})
+  describe(`Selection`, selectionTests);
+});
 
 function initializationTests() {
   it(`
@@ -24,11 +24,11 @@ function initializationTests() {
           name: `Second ToDo`,
         },
       ],
-    })
+    });
 
-    cy.contains(`First ToDo`)
-    cy.contains(`Second ToDo`)
-  })
+    cy.contains(`First ToDo`);
+    cy.contains(`Second ToDo`);
+  });
 }
 
 function selectionTests() {
@@ -48,41 +48,32 @@ function selectionTests() {
           name: `Sixth`,
         },
       ],
-    })
+    });
 
-    cy
-      .get(`[data-cy="to-do"]`)
-      .contains(`Sixth`)
-      .click()
+    cy.get(`[data-cy="to-do"]`).contains(`Sixth`).click();
 
-    cy
-      .get<ToDosState>(`@toDosState`)
-      .should((toDosState) => {
-        expect(toDosState.selectedToDoIds).to.contains(6)
-      })
-  })
+    cy.get<ToDosState>(`@toDosState`).should((toDosState) => {
+      expect(toDosState.selectedToDoIds).to.contains(6);
+    });
+  });
 }
 
 function mountComponent({
   toDosForInitialization,
 }: {
-  toDosForInitialization: unknown[],
+  toDosForInitialization: unknown[];
 }) {
-  const toDosState = new ToDosState()
-  
+  const toDosState = new ToDosState();
+
   toDosState.initialize({
     toDos: toDosForInitialization as ToDo[],
-  })
+  });
 
-  cy
-    .wrap(toDosState)
-    .as(`toDosState`)
+  cy.wrap(toDosState).as(`toDosState`);
 
   cy.mount(
     <ToDosStateContext.Provider value={toDosState}>
-      <ToDosContent 
-        onCompleteClick={() => {}}
-      />
+      <ToDosContent onCompleteClick={() => {}} />
     </ToDosStateContext.Provider>,
-  )
+  );
 }

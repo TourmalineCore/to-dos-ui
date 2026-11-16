@@ -1,13 +1,13 @@
-import { ToDo } from "../../../../../../api-types"
-import { ToDosState } from "../../state/ToDosState"
-import { ToDosStateContext } from "../../state/ToDosStateContext"
-import { CompleteToDosButton } from "./CompleteToDosButton"
+import { ToDo } from "../../../../../../api-types";
+import { ToDosState } from "../../state/ToDosState";
+import { ToDosStateContext } from "../../state/ToDosStateContext";
+import { CompleteToDosButton } from "./CompleteToDosButton";
 
 describe(`CompleteToDosButton`, () => {
-  describe(`Initialization`, initializationTests)
+  describe(`Initialization`, initializationTests);
 
-  describe(`Selection`, selectionTests)
-})
+  describe(`Selection`, selectionTests);
+});
 
 function initializationTests() {
   it(`
@@ -19,23 +19,17 @@ function initializationTests() {
   `, () => {
     mountComponent({
       toDosForInitialization: [],
-      onClick: cy
-        .spy()
-        .as(`onClickSpy`),
-    })
+      onClick: cy.spy().as(`onClickSpy`),
+    });
 
-    getButton()
-      .should(`be.disabled`)
-      
-    getButton()
-      .click({
-        force: true,
-      })
+    getButton().should(`be.disabled`);
 
-    cy
-      .get(`@onClickSpy`)
-      .should(`have.not.been.called`)
-  })
+    getButton().click({
+      force: true,
+    });
+
+    cy.get(`@onClickSpy`).should(`have.not.been.called`);
+  });
 }
 
 function selectionTests() {
@@ -53,57 +47,45 @@ function selectionTests() {
           id: 11,
         },
       ],
-      onClick: cy
-        .spy()
-        .as(`onClickSpy`),
-    })
+      onClick: cy.spy().as(`onClickSpy`),
+    });
 
-    cy
-      .get<ToDosState>(`@toDosState`)
-      .then(toDosState => {
-        toDosState.toggleToDoSelection({
-          toDoId: 11,
-        })
-      })
+    cy.get<ToDosState>(`@toDosState`).then((toDosState) => {
+      toDosState.toggleToDoSelection({
+        toDoId: 11,
+      });
+    });
 
-    getButton()
-      .should(`not.be.disabled`)
-            
-    getButton()
-      .click()
+    getButton().should(`not.be.disabled`);
 
-    cy
-      .get(`@onClickSpy`)
-      .should(`have.been.calledOnce`)
-  })
+    getButton().click();
+
+    cy.get(`@onClickSpy`).should(`have.been.calledOnce`);
+  });
 }
 
 function mountComponent({
   toDosForInitialization,
   onClick,
 }: {
-  toDosForInitialization: unknown[],
-  onClick: () => unknown,
+  toDosForInitialization: unknown[];
+  onClick: () => unknown;
 }) {
-  const toDosState = new ToDosState()
-  
+  const toDosState = new ToDosState();
+
   toDosState.initialize({
     toDos: toDosForInitialization as ToDo[],
-  })
+  });
 
-  cy
-    .wrap(toDosState)
-    .as(`toDosState`)
+  cy.wrap(toDosState).as(`toDosState`);
 
   cy.mount(
     <ToDosStateContext.Provider value={toDosState}>
-      <CompleteToDosButton
-        onClick={onClick}
-      />
+      <CompleteToDosButton onClick={onClick} />
     </ToDosStateContext.Provider>,
-  )
+  );
 }
 
 function getButton() {
-  return cy.get(`[data-cy=complete-selected-to-dos-button]`)
+  return cy.get(`[data-cy=complete-selected-to-dos-button]`);
 }

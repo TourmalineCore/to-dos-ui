@@ -1,54 +1,49 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/docker-existing-dockerfile
 {
-	"name": "Existing Dockerfile",
-	// image with NOT included Cypress is used becuase cypress/included doesn't support browsers installatin for arm64 yet
-	"image": "cypress/browsers:node-20.11.1-chrome-123.0.6312.58-1-ff-124.0-edge-122.0.2365.92-1",
-	"features": {
-		"ghcr.io/devcontainers/features/docker-outside-of-docker:1.4.5": {
-			"version": "20.10",
-			"enableNonRootDocker": "true",
-			"moby": "true"
-		},
-		"ghcr.io/devcontainers/features/git:1.2.0": {
-			"ppa": true,
-			"version": "os-provided"
-		},
-		"ghcr.io/devcontainers/features/kubectl-helm-minikube:1.1.9": {
-			"version": "1.30.0",
-			"helm": "3.14.4",
-			"minikube": "none"
-		},
-		"ghcr.io/nucleuscloud/devcontainer-features/helmfile:0.1.0": {
-			"version": "v0.164.0"
-		},
-		// https://github.com/cypress-io/cypress-documentation/issues/2956#issuecomment-1691335689
-		"ghcr.io/devcontainers/features/desktop-lite:1.1.0": {}
-	},
-	"forwardPorts": [
-		6080,
-		5901
-	],
-	"runArgs": [
-		"--network=host"
-	],
-	"containerEnv": {
-		// https://stackoverflow.com/questions/76555858/how-to-run-cypress-in-interactive-mode-in-a-devcontainer-on-windows-with-docker
-		"CHOKIDAR_USEPOLLING": "true"
-	},
-	"remoteEnv": {
-		// https://stackoverflow.com/q/65343518
-		// the original host directory which is needed for volume mount commands from inside the container (Docker in Docker)
-		"LOCAL_WORKSPACE_FOLDER": "${localWorkspaceFolder}"
-	}
-	// Features to add to the dev container. More info: https://containers.dev/features.
-	// "features": {},
-	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [],
-	// Uncomment the next line to run commands after the container is created.
-	// "postCreateCommand": "cat /etc/os-release",
-	// Configure tool-specific properties.
-	// "customizations": {},
-	// Uncomment to connect as an existing user other than the container default. More info: https://aka.ms/dev-containers-non-root.
-	// "remoteUser": "devcontainer"
+  "name": "Existing Dockerfile",
+  // image with NOT included Cypress is used becuase cypress/included doesn't support browsers installatin for arm64 yet
+  "image": "cypress/browsers:node-20.11.1-chrome-123.0.6312.58-1-ff-124.0-edge-122.0.2365.92-1",
+  "features": {
+    "ghcr.io/devcontainers/features/docker-outside-of-docker:1.4.5": {
+      "version": "20.10",
+      "enableNonRootDocker": "true",
+      "moby": "true"
+    },
+    "ghcr.io/devcontainers/features/git:1.2.0": {
+      "ppa": true,
+      "version": "os-provided"
+    },
+    "ghcr.io/devcontainers/features/kubectl-helm-minikube:1.1.9": {
+      "version": "1.30.0",
+      "helm": "3.14.4",
+      "minikube": "none"
+    },
+    "ghcr.io/nucleuscloud/devcontainer-features/helmfile:0.1.0": {
+      "version": "v0.164.0"
+    },
+    // https://github.com/cypress-io/cypress-documentation/issues/2956#issuecomment-1691335689
+    "ghcr.io/devcontainers/features/desktop-lite:1.1.0": {}
+  },
+  "forwardPorts": [6080, 5901],
+  "runArgs": ["--network=host"],
+  "containerEnv": {
+    // https://stackoverflow.com/questions/76555858/how-to-run-cypress-in-interactive-mode-in-a-devcontainer-on-windows-with-docker
+    "CHOKIDAR_USEPOLLING": "true"
+  },
+  "remoteEnv": {
+    // https://stackoverflow.com/q/65343518
+    // the original host directory which is needed for volume mount commands from inside the container (Docker in Docker)
+    "LOCAL_WORKSPACE_FOLDER": "${localWorkspaceFolder}"
+  }
+  // Features to add to the dev container. More info: https://containers.dev/features.
+  // "features": {},
+  // Use 'forwardPorts' to make a list of ports inside the container available locally.
+  // "forwardPorts": [],
+  // Uncomment the next line to run commands after the container is created.
+  // "postCreateCommand": "cat /etc/os-release",
+  // Configure tool-specific properties.
+  // "customizations": {},
+  // Uncomment to connect as an existing user other than the container default. More info: https://aka.ms/dev-containers-non-root.
+  // "remoteUser": "devcontainer"
 }

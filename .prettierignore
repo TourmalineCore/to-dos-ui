@@ -1,0 +1,8 @@
+dist/
+dist-ssr/
+src/api-types/
+package-lock.json
+cypress/screenshots/
+cypress/videos/
+cypress/downloads/
+.vscode/cch-template/
